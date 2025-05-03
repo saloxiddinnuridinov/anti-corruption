@@ -9,6 +9,45 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+/**
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="Karrupsiya API Documentation",
+ *      description="API for Karrupsiya mobile application",
+ *      @OA\Contact(
+ *          email="support@karrupsiya.uz"
+ *      ),
+ *      @OA\License(
+ *          name="Apache 2.0",
+ *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
+ *      )
+ * )
+ *
+ * @OA\Server(
+ *      url=L5_SWAGGER_CONST_HOST,
+ *      description="API Server"
+ * )
+ *
+ * @OA\Tag(
+ *     name="Auth",
+ *     description="Authentication endpoints"
+ * )
+ *
+ * @OA\Tag(
+ *     name="Appeals",
+ *     description="Appeal management endpoints"
+ * )
+ *
+ * @OA\Tag(
+ *     name="Content",
+ *     description="News and announcements endpoints"
+ * )
+ *
+ * @OA\Schema(
+ *     schema="Unauthorized",
+ *     @OA\Property(property="message", type="string", example="Unauthorized"),
+ * )
+ */
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -79,4 +118,5 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+
 }
