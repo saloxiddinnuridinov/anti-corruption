@@ -18,9 +18,14 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'one_id',
         'name',
         'email',
+        'phone',
         'password',
+        'role',
+        'is_blocked',
+        'warning_count'
     ];
 
     /**
@@ -44,5 +49,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'is_blocked' => 'boolean',
+    ];
+
+    public function appeals()
+    {
+        return $this->hasMany(Appeal::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function addWarning()
+    {
+        $this->warning_count += 1;
+        if ($this->warning_count >= 3) {
+            $this->is_blocked = true;
+        }
+        $this->save();
     }
 }
